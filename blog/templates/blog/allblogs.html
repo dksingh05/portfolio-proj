@@ -7,13 +7,25 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Jekyll v4.1.1">
-    <title>Dhananjay Singh</title>
+    <title>Dhananjay's Blog</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/album/">
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
           integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" href="/docs/4.5/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
+    <link rel="icon" href="/docs/4.5/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="/docs/4.5/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+    <link rel="manifest" href="/docs/4.5/assets/img/favicons/manifest.json">
+    <link rel="mask-icon" href="/docs/4.5/assets/img/favicons/safari-pinned-tab.svg" color="#563d7c">
+    <link rel="icon" href="/docs/4.5/assets/img/favicons/favicon.ico">
+    <meta name="msapplication-config" content="/docs/4.5/assets/img/favicons/browserconfig.xml">
+    <meta name="theme-color" content="#563d7c">
+
 
     <style>
       .bd-placeholder-img {
@@ -31,6 +43,7 @@
         }
       }
 
+
     </style>
     <!-- Custom styles for this template -->
     <link href="album.css" rel="stylesheet">
@@ -47,44 +60,30 @@
             <div class="navbar-nav ml-auto">
                 <a class="nav-link" href="http://twitter.com/dksingh05">Twitter</a>
                 <a class="nav-link" href="{% static 'resume.pdf' %}">Resume</a>
-                <a class="nav-link" href="{% url 'allblogs' %}">Blog</a>
+                <a class="nav-link active" href="{% url 'allblogs' %}">Blog</a>
             </div>
         </div>
     </nav>
 </header>
 
 <main role="main">
+    <div class="container">
+        <h1 class="text-center pt-3">Welcome to Dhananjay's Blog</h1>
+        <br/><br/>
+        <h2>Latest Posts</h2>
+        <hr />
+        {% for blog in blogs.all %}
 
-    <section class="jumbotron text-center">
-        <div class="container">
-            <h1>Hi, I'm Dhananjay</h1>
-            <p class="lead text-muted">My name is Dhananjay Singh and I am an Entrepreneur. I am building nextgen education
-            platform for kids to gain relevant technology skills to excel in 21st century</p>
-            <p>
-                <a href="mailto:nick@zappycode.com" class="btn btn-primary my-2">My Email</a>
-            </p>
-            <img src="{% static 'profile.jpg' %}" height="300" />
-        </div>
-    </section>
+        <a href="{% url 'detail' blog.id %}"><h3>{{ blog.title }}</h3></a>
 
-    <div class="album py-5 bg-light">
-        <div class="container">
-
-            <div class="row">
-                {% for job in jobs.all %}
-                <div class="col-md-4">
-                    <div class="card mb-4 shadow-sm">
-                        <img class="bd-placeholder-img card-img-top" width="100%" height="225" src="{{ job.image.url }}" />
-                        <div class="card-body">
-                            <p class="card-text">{{ job.summary }}</p>
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
-        </div>
+        {{ blog.pub_date_pretty }}
+        <br/>
+        <img class="img-fluid" src="{{ blog.image.url}}" width="200" />
+        <br>
+        <p>{{ blog.summary }}</p>
+        {% endfor %}
+        <hr>
     </div>
-
 </main>
 
 <footer class="text-muted">
